@@ -14,28 +14,31 @@ body {
 	align-items: center;
 }
 
-.App {
-	text-align: center;
+#root {
+	width: 500px;
+	margin: 0px 40px;
 }
 
 h1 {
 	color: #000;
-	margin-bottom: 0.5rem;
 	font-size: 1.75rem;
 }
 
 .TodoWrapper {
 	background: #fff;
-	margin-top: 5rem;
+	margin: 5rem 0 5rem 0;
 	padding: 2rem;
 	border-radius: 5px;
 	box-shadow: #d1d1d1 0 0 16px;
+	text-align: center;
+	transition: all 1s linear;
 }
 
 .TodoForm {
-	width: 100%;
-	margin-bottom: 1rem;
-	margin-top: 1rem;
+	margin: 16px 0;
+	width: auto;
+	display: flex;
+	justify-content: center;
 }
 
 .input-box {
@@ -47,22 +50,31 @@ h1 {
 	background: none;
 	border: 1px solid #d1d1d1;
 	padding: 0.5rem 1em;
-	width: 300px;
+	max-width: 300px;
+	width: 100%;
 	color: #000;
 	border-radius: 8px 0 0 8px;
 }
 
 .todo-input::placeholder {
-	color: #000;
+	color: #d1d1d1;
 }
 
 .todo-btn {
+	transition: all 0.1s;
+	min-width: 128px;
 	background: #d1d1d1;
 	color: #000;
 	border: none;
 	border-radius: 0 8px 8px 0;
 	padding: 0.55rem;
 	cursor: pointer;
+}
+
+.todosFlex {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
 }
 
 .Todo {
@@ -72,10 +84,8 @@ h1 {
 	align-items: center;
 	background: #fff;
 	color: #000;
-	padding: 0.75rem 1rem;
+	padding: 16px 16px;
 	border-radius: 5px;
-	margin-bottom: 1rem;
-	margin-top: 1rem;
 	cursor: pointer;
 }
 

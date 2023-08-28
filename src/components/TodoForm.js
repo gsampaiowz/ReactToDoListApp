@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export const TodoForm = ({ addTodo }) => {
+export const TodoForm = ({ addTodo, windowWidth }) => {
 	const [value, setValue] = useState("");
 
 	const handleSubmit = (e) => {
@@ -9,6 +11,7 @@ export const TodoForm = ({ addTodo }) => {
 		addTodo(value);
 
 		setValue("");
+
 	};
 
 	return (
@@ -20,8 +23,16 @@ export const TodoForm = ({ addTodo }) => {
 				placeholder="Adicione uma tarefa"
 				onChange={(e) => setValue(e.target.value)}
 			/>
-			<button type="submit" className="todo-btn">
-				Adicionar tarefa
+			<button
+				style={{ minWidth: windowWidth < 459 ? "48px" : "128px" }}
+				type="submit"
+				className="todo-btn"
+			>
+				{windowWidth < 459 ? (
+					<FontAwesomeIcon icon={faPlus} />
+				) : (
+					"Adicionar tarefa"
+				)}
 			</button>
 		</form>
 	);

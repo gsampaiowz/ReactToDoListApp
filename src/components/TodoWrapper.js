@@ -3,6 +3,8 @@ import { TodoForm } from "./TodoForm";
 import { v4 as uuidv4 } from "uuid";
 import { Todo } from "./Todo";
 import { EditTodoForm } from "./EditTodoForm";
+import { TransitionGroup } from "react-transition-group";
+import { List, Box, Collapse } from "@mui/material";
 uuidv4();
 
 export const TodoWrapper = () => {
@@ -42,23 +44,53 @@ export const TodoWrapper = () => {
 			)
 		);
 	};
+
+	const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+	React.useEffect(() => {
+		const handleResize = () => {
+			setWindowWidth(window.innerWidth);
+		};
+
+		window.addEventListener("resize", handleResize);
+
+		return () => {
+			window.removeEventListener("resize", handleResize);
+		};
+	}, []);
+
 	return (
 		<div className="TodoWrapper">
 			<h1>Organize suas tarefas!</h1>
-			<TodoForm addTodo={addTodo} />
-			{todos.map((todo, index) =>
-				todo.isEditing ? (
-					<EditTodoForm key={todo.id} {...todo} editTodo={editTask} task={todo} />
-				) : (
-					<Todo
-						task={todo}
-						key={index}
-						toggleComplete={toggleComplete}
-						deleteTodo={deleteTodo}
-						editTodo={editTodo}
-					/>
-				)
-			)}
+			<TodoForm windowWidth={windowWidth} addTodo={addTodo} />
+			<Box sx={{ mt: 1 }}>
+				<List>
+					<TransitionGroup className="todosFlex">
+						{todos.map((todo, index) =>
+							todo.isEditing ? (
+								<Collapse>
+									<EditTodoForm
+										key={todo.id}
+										{...todo}
+										editTodo={editTask}
+										task={todo}
+									/>
+								</Collapse>
+							) : (
+								<Collapse>
+									<Todo
+										task={todo}
+										key={index}
+										toggleComplete={toggleComplete}
+										deleteTodo={deleteTodo}
+										editTodo={editTodo}
+									/>
+								</Collapse>
+							)
+						)}
+					</TransitionGroup>
+				</List>
+			</Box>
 		</div>
 	);
 };

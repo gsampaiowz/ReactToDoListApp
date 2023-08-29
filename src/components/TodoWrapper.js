@@ -63,7 +63,7 @@ export const TodoWrapper = () => {
 		<div className="TodoWrapper">
 			<h1>Organize suas tarefas!</h1>
 			<TodoForm windowWidth={windowWidth} addTodo={addTodo} />
-			<Box sx={{ mt: 1 }}>
+			<Box>
 				<List>
 					<TransitionGroup className="todosFlex">
 						{todos.map((todo, index) =>

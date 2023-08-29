@@ -47,7 +47,7 @@ h1 {
 }
 
 .TodoForm {
-	margin: 16px 0 0 0;
+	margin: 16px 0;
 	width: auto;
 	display: flex;
 	justify-content: center;

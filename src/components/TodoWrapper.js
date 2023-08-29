@@ -66,21 +66,15 @@ export const TodoWrapper = () => {
 			<Box>
 				<List>
 					<TransitionGroup className="todosFlex">
-						{todos.map((todo, index) =>
+						{todos.map((todo) =>
 							todo.isEditing ? (
-								<Collapse>
-									<EditTodoForm
-										key={todo.id}
-										{...todo}
-										editTodo={editTask}
-										task={todo}
-									/>
+								<Collapse key={todo.id}>
+									<EditTodoForm {...todo} editTodo={editTask} task={todo} />
 								</Collapse>
 							) : (
-								<Collapse>
+								<Collapse key={todo.id}>
 									<Todo
 										task={todo}
-										key={index}
 										toggleComplete={toggleComplete}
 										deleteTodo={deleteTodo}
 										editTodo={editTodo}

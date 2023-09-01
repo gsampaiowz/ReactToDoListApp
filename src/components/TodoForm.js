@@ -3,6 +3,15 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const TodoForm = ({ addTodo, windowWidth }) => {
+	const scrollToBottom = () => {
+		const element = document.getElementById(1);
+		element.scrollTo(element.scrollHeight, element.scrollHeight);
+	};
+
+	setTimeout(() => {
+		scrollToBottom();
+	}, 250);
+
 	const [value, setValue] = useState("");
 
 	const handleSubmit = (e) => {
@@ -11,7 +20,6 @@ export const TodoForm = ({ addTodo, windowWidth }) => {
 		addTodo(value);
 
 		setValue("");
-
 	};
 
 	return (
@@ -24,7 +32,8 @@ export const TodoForm = ({ addTodo, windowWidth }) => {
 				onChange={(e) => setValue(e.target.value)}
 			/>
 			<button
-				style={{ minWidth: windowWidth < 459 ? "48px" : "128px" }}
+				onClick={scrollToBottom}
+				style={{ minWidth: windowWidth < 459 ? "48px" : "150px" }}
 				type="submit"
 				className="todo-btn"
 			>

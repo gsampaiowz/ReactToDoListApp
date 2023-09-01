@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export const EditTodoForm = ({ editTodo, task }) => {
+export const EditTodoForm = ({ editTodo, task, windowWidth }) => {
 	const [value, setValue] = useState("");
 
 	const handleSubmit = (e) => {
@@ -20,8 +22,16 @@ export const EditTodoForm = ({ editTodo, task }) => {
 				placeholder="Atualizar tarefa"
 				onChange={(e) => setValue(e.target.value)}
 			/>
-			<button type="submit" className="todo-btn">
-				Atualizar tarefa
+			<button
+				style={{ minWidth: windowWidth < 459 ? "48px" : "150px" }}
+				type="submit"
+				className="todo-btn"
+			>
+				{windowWidth < 459 ? (
+					<FontAwesomeIcon icon={faPlus} />
+				) : (
+					"Atualizar tarefa"
+				)}
 			</button>
 		</form>
 	);

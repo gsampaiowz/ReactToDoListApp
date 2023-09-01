@@ -63,13 +63,13 @@ export const TodoWrapper = () => {
 		<div className="TodoWrapper">
 			<h1>Organize suas tarefas!</h1>
 			<TodoForm windowWidth={windowWidth} addTodo={addTodo} />
-			<Box>
-				<List>
+			<Box maxWidth={400} width={"100%"}>
+				<List disablePadding id={1} className="lista">
 					<TransitionGroup className="todosFlex">
 						{todos.map((todo) =>
 							todo.isEditing ? (
 								<Collapse key={todo.id}>
-									<EditTodoForm {...todo} editTodo={editTask} task={todo} />
+									<EditTodoForm windowWidth={windowWidth} {...todo} editTodo={editTask} task={todo} />
 								</Collapse>
 							) : (
 								<Collapse key={todo.id}>

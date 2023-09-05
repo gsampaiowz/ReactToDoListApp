@@ -5,6 +5,7 @@ import { Todo } from "./Todo";
 import { EditTodoForm } from "./EditTodoForm";
 import { TransitionGroup } from "react-transition-group";
 import { List, Box, Collapse } from "@mui/material";
+import FadeIn from "react-fade-in";
 uuidv4();
 
 export const TodoWrapper = () => {
@@ -45,6 +46,7 @@ export const TodoWrapper = () => {
 		);
 	};
 
+	// Pega a largura atualizada da tela para aprimorar responsividade
 	const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
 	React.useEffect(() => {
@@ -59,6 +61,30 @@ export const TodoWrapper = () => {
 		};
 	}, []);
 
+	// Adiciona borda quando aparece a barra de rolagem
+	var lista = document.querySelector(".lista");
+	var todosFlex = document.querySelector(".todosFlex");
+
+	// CSS função
+	const addExceededHeightClass = () => {
+		if (lista) {
+			if (todos.map((todo) => todo).length > 3) {
+				lista.classList.add("alturaMax");
+				todosFlex.style.padding = "16px 8px";
+			} else {
+				lista.classList.remove("alturaMax");
+				todosFlex.style.padding = "4px 8px";
+
+			}
+		}
+	}
+
+	// evento da lista
+	if(lista)lista.addEventListener("DOMSubtreeModified", addExceededHeightClass);
+
+	// evento do flex
+	if(todosFlex)todosFlex.addEventListener("resize", addExceededHeightClass);
+
 	return (
 		<div className="TodoWrapper">
 			<h1>Organize suas tarefas!</h1>
@@ -69,16 +95,25 @@ export const TodoWrapper = () => {
 						{todos.map((todo) =>
 							todo.isEditing ? (
 								<Collapse key={todo.id}>
-									<EditTodoForm windowWidth={windowWidth} {...todo} editTodo={editTask} task={todo} />
+									<FadeIn>
+										<EditTodoForm
+											windowWidth={windowWidth}
+											{...todo}
+											editTodo={editTask}
+											todo={todo}
+										/>
+									</FadeIn>
 								</Collapse>
 							) : (
 								<Collapse key={todo.id}>
-									<Todo
-										task={todo}
-										toggleComplete={toggleComplete}
-										deleteTodo={deleteTodo}
-										editTodo={editTodo}
-									/>
+									<FadeIn>
+										<Todo
+											todo={todo}
+											toggleComplete={toggleComplete}
+											deleteTodo={deleteTodo}
+											editTodo={editTodo}
+										/>
+									</FadeIn>
 								</Collapse>
 							)
 						)}

@@ -8,7 +8,7 @@
 }
 
 body {
-	background: #fff;
+	background: #170725;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -20,12 +20,12 @@ body {
 }
 
 h1 {
-	color: #000;
+	color: #d1d1d1;
 	font-size: 1.75rem;
 }
 
 .TodoWrapper {
-	background: #fff;
+	background: #2f0d4e;
 	margin: 5rem 0 5rem 0;
 	padding: 2rem;
 	max-width: 500px;
@@ -35,14 +35,15 @@ h1 {
 	gap: 16px;
 	width: 100%;
 	border-radius: 16px;
-	box-shadow: #d1d1d1 0 0 16px;
+
 	text-align: center;
 	animation: fadeIn 0.5s ease;
 }
 
 .TodoForm {
+	border-radius: 8px;
 	top: 0;
-	background-color: #fff;
+	background-color: #170725;
 	width: 100%;
 	justify-content: space-between;
 	display: flex;
@@ -61,20 +62,22 @@ h1 {
 	padding: 0.5rem 1em;
 	max-width: 300px;
 	width: 100%;
-	color: #000;
+	color: #d1d1d1;
 	border-radius: 8px 0 0 8px;
 }
 
 .todo-input::placeholder {
-	color: #d1d1d1;
+	color: #3b3b3b;
 }
 
 .todo-btn {
 	transition: all 0.2s;
 	min-width: 150px;
-	background: #d1d1d1;
-	color: #000;
-	border: none;
+	font-weight: 500;
+	background: #2f0d4e;
+	border: 1px solid #d1d1d1;
+	color: #d1d1d1;
+	border-left: none;
 	border-radius: 0 8px 8px 0;
 	padding: 0.55rem;
 	cursor: pointer;
@@ -85,36 +88,41 @@ h1 {
 	flex-direction: column;
 	gap: 16px;
 	z-index: 1;
-	padding: 8px;
+	padding: 4px 8px;
 }
 
 .lista {
-	max-height: 240px;
+	max-height: 256px;
 	overflow-y: scroll;
+}
+
+.alturaMax{
 	border-top: 1px solid #d1d1d1;
+	border-bottom: 1px solid #d1d1d1;
+	transition: all 1s;
 }
 
 .Todo {
-	box-shadow: #d1d1d1 0 0 8px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	background: #fff;
-	color: #000;
+	min-height: 64px;
+	background: #170725;
+	color: #d1d1d1;
 	padding: 16px 16px;
 	border-radius: 5px;
 	cursor: pointer;
-	transition: all 0.2s;
 	animation: fade 0.5s ease;
 }
 
-.fa-trash {
-	margin-left: 0.75rem;
+.completed {
+	color: #444444;
+	text-decoration: line-through;
 }
 
-.completed {
-	color: #d1d1d1;
-	text-decoration: line-through;
+.icons {
+	display: flex;
+	gap: 8px;
 }
 
 @keyframes fadeIn {
@@ -139,7 +147,7 @@ h1 {
 /* Firefox */
 * {
 	scrollbar-width: thin;
-	scrollbar-color: #d1d1d1 #fff;
+	scrollbar-color: #d1d1d1 #d1d1d1;
 }
 
 /* Chrome, Edge and Safari */
@@ -149,7 +157,7 @@ h1 {
 }
 *::-webkit-scrollbar-track {
 	border-radius: 8px;
-	background-color: #fff;
+	background-color: none;
 }
 
 *::-webkit-scrollbar-thumb {

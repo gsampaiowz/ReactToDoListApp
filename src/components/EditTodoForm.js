@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export const EditTodoForm = ({ editTodo, task, windowWidth }) => {
+export const EditTodoForm = ({ editTodo, todo, windowWidth }) => {
 	const [value, setValue] = useState("");
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		editTodo(value, task.id);
+		editTodo(value, todo.id);
 
 		setValue("");
 	};

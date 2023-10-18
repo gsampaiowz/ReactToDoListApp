@@ -68,11 +68,14 @@ export const TodoWrapper = () => {
 	// CSS função
 	const addExceededHeightClass = () => {
 		if (lista) {
+			const listabox = document.querySelector(".lista-box")
 			if (todos.map((todo) => todo).length > 3) {
-				lista.classList.add("alturaMax");
+				listabox.style.borderBottom = "1px solid rgba(255,255,255,0.5)";
+				listabox.style.borderTop = "1px solid rgba(255,255,255,0.5)";
 				todosFlex.style.padding = "16px 8px";
 			} else {
-				lista.classList.remove("alturaMax");
+				listabox.style.borderTop = "none";
+				listabox.style.borderBottom = "none";
 				todosFlex.style.padding = "4px 8px";
 
 			}
@@ -89,7 +92,7 @@ export const TodoWrapper = () => {
 		<div className="TodoWrapper">
 			<h1>Organize suas tarefas!</h1>
 			<TodoForm windowWidth={windowWidth} addTodo={addTodo} />
-			<Box maxWidth={400} width={"100%"}>
+			<Box className="lista-box" maxWidth={400} width={"100%"}>
 				<List disablePadding id={1} className="lista">
 					<TransitionGroup className="todosFlex">
 						{todos.map((todo) =>

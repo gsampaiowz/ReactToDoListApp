@@ -1,166 +1,190 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 
 * {
-	font-family: "Poppins", sans-serif;
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-	background: #170725;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  background: #170725;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #root {
-	width: 500px;
-	margin: 0px 40px;
+  width: 500px;
+  margin: 0px 40px;
 }
 
 h1 {
-	color: #d1d1d1;
-	font-size: 1.75rem;
+  color: #d1d1d1;
+  font-size: 1.75rem;
 }
 
 .TodoWrapper {
-	background: #2f0d4e;
-	margin: 5rem 0 5rem 0;
-	padding: 2rem;
-	max-width: 500px;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 16px;
-	width: 100%;
-	border-radius: 16px;
-
-	text-align: center;
-	animation: fadeIn 0.5s ease;
+  transition: 1s;
+  background: #2f0d4e;
+  margin: 5rem 0 5rem 0;
+  padding: 2rem;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  border-radius: 16px;
+  max-height: 434px;
+  text-align: center;
+  animation: fadeIn 0.5s ease;
 }
 
 .TodoForm {
-	border-radius: 8px;
-	top: 0;
-	background-color: #170725;
-	width: 100%;
-	justify-content: space-between;
-	display: flex;
-	animation: fade 0.5s ease;
-	z-index: 2;
+  border-radius: 8px;
+  top: 0;
+  background-color: #170725;
+  width: 100%;
+  justify-content: space-between;
+  display: flex;
+  animation: fade 0.5s ease;
+  z-index: 2;
 }
 
 .input-box {
-	border-radius: 8px;
+  border-radius: 8px;
 }
 
 .todo-input {
-	outline: none;
-	background: none;
-	border: 1px solid #d1d1d1;
-	padding: 0.5rem 1em;
-	max-width: 300px;
-	width: 100%;
-	color: #d1d1d1;
-	border-radius: 8px 0 0 8px;
+  outline: none;
+  background: none;
+  border: 1px solid #d1d1d1;
+  padding: 0.5rem 1em;
+  max-width: 300px;
+  width: 100%;
+  color: #d1d1d1;
+  border-radius: 8px 0 0 8px;
 }
 
 .todo-input::placeholder {
-	color: #3b3b3b;
+  color: #3b3b3b;
 }
 
 .todo-btn {
-	transition: all 0.2s;
-	min-width: 150px;
-	font-weight: 500;
-	background: #2f0d4e;
-	border: 1px solid #d1d1d1;
-	color: #d1d1d1;
-	border-left: none;
-	border-radius: 0 8px 8px 0;
-	padding: 0.55rem;
-	cursor: pointer;
+  transition: all 0.2s;
+  min-width: 150px;
+  font-weight: 500;
+  background: #2f0d4e;
+  border: 1px solid #d1d1d1;
+  color: #d1d1d1;
+  border-left: none;
+  border-radius: 0 8px 8px 0;
+  padding: 0.55rem;
+  cursor: pointer;
 }
 
 .todosFlex {
-	display: flex;
-	flex-direction: column;
-	gap: 16px;
-	z-index: 1;
-	padding: 4px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  z-index: 1;
+  padding: 4px 8px;
 }
 
 .lista {
-	max-height: 256px;
-	overflow-y: scroll;
+  max-height: 256px;
+  overflow-y: scroll;
+  transition: 1s;
 }
 
-.alturaMax{
-	border-top: 1px solid #d1d1d1;
-	border-bottom: 1px solid #d1d1d1;
-	transition: all 1s;
+.lista-box {
+  transition: 1s;
 }
 
+.lista-box::before {
+  transition: opacity 1s, display 1s;
+  animation: fade 1s ease;
+  content: "";
+  opacity: var(--opacity);
+  display: var(--display);
+  height: 1px;
+  border-bottom: 1px solid transparent;
+  box-shadow: 0px 5px 5px black;
+  margin-bottom: 8px;
+  width: auto;
+}
+
+.lista-box::after {
+  transition: opacity 1s, display 1s;
+  content: "";
+  animation: fade 1s ease;
+  opacity: var(--opacity);
+  display: var(--display);
+  height: 1px;
+  box-shadow: 0px -5px 5px black;
+  margin-top: 8px;
+  width: auto;
+}
 .Todo {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	min-height: 64px;
-	background: #170725;
-	color: #d1d1d1;
-	padding: 16px 16px;
-	border-radius: 5px;
-	cursor: pointer;
-	animation: fade 0.5s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 64px;
+  background: #170725;
+  color: #d1d1d1;
+  padding: 16px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  animation: fade 0.5s ease;
 }
 
 .completed {
-	color: #444444;
-	text-decoration: line-through;
+  color: #444444;
+  text-decoration: line-through;
 }
 
 .icons {
-	display: flex;
-	gap: 8px;
+  display: flex;
+  gap: 8px;
 }
 
 @keyframes fadeIn {
-	0% {
-		opacity: 0;
-		transform: translateY(10px);
-	}
-	100% {
-		opacity: 1;
-		transform: translateY(0px);
-	}
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
 }
 @keyframes fade {
-	0% {
-		opacity: 0;
-	}
-	100% {
-		opacity: 1;
-	}
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 /* Firefox */
 * {
-	scrollbar-width: thin;
-	scrollbar-color: #d1d1d1 #d1d1d1;
+  scrollbar-width: thin;
+  scrollbar-color: #d1d1d1 #d1d1d1;
 }
 
 /* Chrome, Edge and Safari */
 *::-webkit-scrollbar {
-	height: 10px;
-	width: 10px;
+  height: 10px;
+  width: 10px;
 }
 *::-webkit-scrollbar-track {
-	border-radius: 8px;
-	background-color: none;
+  border-radius: 8px;
+  background-color: none;
 }
 
 *::-webkit-scrollbar-thumb {
-	border-radius: 8px;
-	background-color: #d1d1d1;
+  border-radius: 8px;
+  background-color: #d1d1d1;
 }

@@ -48,7 +48,6 @@ h1 {
   width: 100%;
   justify-content: space-between;
   display: flex;
-  animation: fade 0.5s ease;
   z-index: 2;
 }
 
@@ -136,7 +135,6 @@ h1 {
   padding: 16px 16px;
   border-radius: 5px;
   cursor: pointer;
-  animation: fade 0.5s ease;
 }
 
 .completed {

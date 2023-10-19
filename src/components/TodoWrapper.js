@@ -6,18 +6,28 @@ import { EditTodoForm } from "./EditTodoForm";
 import { TransitionGroup } from "react-transition-group";
 import { List, Box, Collapse } from "@mui/material";
 import FadeIn from "react-fade-in";
+import { useEffect } from "react";
 uuidv4();
 
 export const TodoWrapper = () => {
   const [todos, setTodos] = useState([]);
 
   const addTodo = (todo) => {
-    localStorage.setItem("todos", JSON.stringify(todos));
-    setTodos([
+    const newTodo = [
       ...todos,
       { id: uuidv4(), task: todo, completed: false, idEditing: false },
-    ]);
+    ];
+
+    setTodos(newTodo);
+
+    localStorage.setItem("todos", JSON.stringify(newTodo));
   };
+
+  useEffect(() => {
+    const storedTodos = localStorage.getItem("todos");
+
+    if (storedTodos) setTodos(JSON.parse(storedTodos));
+  }, []);
 
   const toggleComplete = (id) => {
     setTodos(
@@ -28,7 +38,9 @@ export const TodoWrapper = () => {
   };
 
   const deleteTodo = (id) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
+    const updatedTodos = todos.filter((todo) => todo.id !== id);
+    setTodos(updatedTodos);
+    localStorage.setItem("todos", JSON.stringify(updatedTodos));
   };
 
   const editTodo = (id) => {
@@ -40,11 +52,13 @@ export const TodoWrapper = () => {
   };
 
   const editTask = (task, id) => {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, task, isEditing: !todo.isEditing } : todo
-      )
+    const updatedTask = todos.map((todo) =>
+      todo.id === id ? { ...todo, task, isEditing: !todo.isEditing } : todo
     );
+
+    setTodos(updatedTask);
+
+    localStorage.setItem("todos", JSON.stringify(updatedTask));
   };
 
   // Pega a largura atualizada da tela para aprimorar responsividade
@@ -83,8 +97,7 @@ export const TodoWrapper = () => {
   };
 
   // evento da lista
-  if (lista)
-    lista.addEventListener("DOMSubtreeModified", addExceededHeightClass);
+  if (lista) lista.addEventListener("MutatioObserver", addExceededHeightClass);
 
   // evento do flex
   if (todosFlex) todosFlex.addEventListener("resize", addExceededHeightClass);
@@ -92,7 +105,7 @@ export const TodoWrapper = () => {
   return (
     <div className="TodoWrapper">
       <h1>Organize suas tarefas!</h1>
-      <TodoForm windowWidth={windowWidth} addTodo={addTodo} />
+      <TodoForm todos={todos} windowWidth={windowWidth} addTodo={addTodo} />
       <Box className="lista-box" maxWidth={400} width={"100%"}>
         <List disablePadding id={1} className="lista">
           <TransitionGroup className="todosFlex">

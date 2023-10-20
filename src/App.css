@@ -92,8 +92,7 @@ h1 {
 
 .animate {
   height: 0;
-  overflow: hidden;
-  transition: 1s ease height;
+  transition: 1s ease-in-out height;
 }
 
 .lista {

@@ -62,6 +62,8 @@ export const TodoWrapper = () => {
   };
 
   const deleteAll = () => {
+    alert('Tem certeza que quer deletar todos os itens?')
+
     setTodos([]);
 
     localStorage.setItem("todos", JSON.stringify([]));
@@ -81,10 +83,9 @@ export const TodoWrapper = () => {
 
     if (todosFlex && localStorage.getItem("todos") === "[]") {
       todosFlex.classList.add("animate")
-      setTimeout(() => {todosFlex.style.display = "none"}, 1000);
     }else if (todosFlex && localStorage.getItem("todos") !== "[]") {
+      todosFlex.classList.add("animate")
       todosFlex.style.height = "auto";
-      todosFlex.style.display = "flex";
     }
     window.addEventListener("resize", handleResize);
 

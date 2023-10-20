@@ -62,7 +62,7 @@ export const TodoWrapper = () => {
   };
 
   const deleteAll = () => {
-    alert('Tem certeza que quer deletar todos os itens?')
+    if(todos.length === 0) return alert("Não há tarefas para deletar");
 
     setTodos([]);
 
@@ -83,8 +83,11 @@ export const TodoWrapper = () => {
 
     if (todosFlex && localStorage.getItem("todos") === "[]") {
       todosFlex.classList.add("animate")
+      // todosFlex.style.display =  "none";
+      setTimeout(() => {todosFlex.style.display =  "none"; todosFlex.style.position = "absolute"}, 1000);
     }else if (todosFlex && localStorage.getItem("todos") !== "[]") {
       todosFlex.classList.add("animate")
+      todosFlex.style.display =  "flex";
       todosFlex.style.height = "auto";
     }
     window.addEventListener("resize", handleResize);

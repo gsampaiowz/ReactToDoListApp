@@ -36,7 +36,6 @@ h1 {
   gap: 16px;
   width: 100%;
   border-radius: 16px;
-  max-height: 434px;
   text-align: center;
   animation: fadeIn 0.5s ease;
 }
@@ -89,6 +88,12 @@ h1 {
   gap: 16px;
   z-index: 1;
   padding: 4px 8px;
+}
+
+.animate {
+  height: 0;
+  overflow: hidden;
+  transition: 1s ease height;
 }
 
 .lista {

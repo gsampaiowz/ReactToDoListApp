@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export const TodoForm = ({ todos, addTodo, windowWidth }) => {
+export const TodoForm = ({ addTodo, windowWidth }) => {
   const scrollToBottom = () => {
     const element = document.getElementById(1);
     element.scrollTo({
@@ -20,6 +20,28 @@ export const TodoForm = ({ todos, addTodo, windowWidth }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    if (!value) {
+      const input = document.querySelector(".todo-input");
+      const btninput = document.querySelector(".todo-btn");
+      input.focus();
+      input.animate(
+        [
+          { transform: "translateY(-1px)", border: "1px solid red" },
+          { transform: "translateY(1px)", border: "1px solid red" },
+        ],
+
+        { duration: 100, iterations: 3 }
+      );
+      btninput.animate(
+        [
+          { transform: "translateY(-1px)", border: "1px solid red" },
+          { transform: "translateY(1px)", border: "1px solid red" },
+        ],
+
+        { duration: 100, iterations: 3 }
+      );
+      return;
+    }
     addTodo(value);
 
     setValue("");

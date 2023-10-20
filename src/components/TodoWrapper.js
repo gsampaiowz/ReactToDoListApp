@@ -61,24 +61,37 @@ export const TodoWrapper = () => {
     localStorage.setItem("todos", JSON.stringify(updatedTask));
   };
 
+  const deleteAll = () => {
+    setTodos([]);
+
+    localStorage.setItem("todos", JSON.stringify([]));
+  };
+
   // Pega a largura atualizada da tela para aprimorar responsividade
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-  React.useEffect(() => {
+  // Adiciona borda quando aparece a barra de rolagem
+  const lista = document.querySelector(".lista");
+  const todosFlex = document.querySelector(".todosFlex");
+
+  useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
     };
 
+    if (todosFlex && localStorage.getItem("todos") === "[]") {
+      todosFlex.classList.add("animate")
+      setTimeout(() => {todosFlex.style.display = "none"}, 1000);
+    }else if (todosFlex && localStorage.getItem("todos") !== "[]") {
+      todosFlex.style.height = "auto";
+      todosFlex.style.display = "flex";
+    }
     window.addEventListener("resize", handleResize);
 
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
-
-  // Adiciona borda quando aparece a barra de rolagem
-  var lista = document.querySelector(".lista");
-  var todosFlex = document.querySelector(".todosFlex");
+  }, [todos, todosFlex]);
 
   // CSS função
   const addExceededHeightClass = () => {
@@ -137,6 +150,13 @@ export const TodoWrapper = () => {
           </TransitionGroup>
         </List>
       </Box>
+      <button
+        className="todo-btn"
+        style={{ borderRadius: 8, borderLeft: "1px solid" }}
+        onClick={deleteAll}
+      >
+        Deletar todos
+      </button>
     </div>
   );
 };

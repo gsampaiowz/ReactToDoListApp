@@ -114,7 +114,7 @@ export const TodoWrapper = () => {
   };
 
   // evento da lista
-  if (lista) lista.addEventListener("MutatioObserver", addExceededHeightClass);
+  if (lista) lista.addEventListener("MutationObserver", addExceededHeightClass);
 
   // evento do flex
   if (todosFlex) todosFlex.addEventListener("resize", addExceededHeightClass);

@@ -83,7 +83,7 @@ h1 {
 }
 
 .todosFlex {
-  display: flex;
+  display: none;
   flex-direction: column;
   gap: 16px;
   z-index: 1;
@@ -102,6 +102,7 @@ h1 {
 }
 
 .lista-box {
+  display: none;
   transition: 1s;
 }
 

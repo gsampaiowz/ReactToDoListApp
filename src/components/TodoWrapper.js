@@ -23,10 +23,12 @@ export const TodoWrapper = () => {
     localStorage.setItem("todos", JSON.stringify(newTodo));
   };
 
+  //Carrega os toDos do localStorage
   useEffect(() => {
     const storedTodos = localStorage.getItem("todos");
 
     if (storedTodos) setTodos(JSON.parse(storedTodos));
+
   }, []);
 
   const toggleComplete = (id) => {
@@ -62,7 +64,7 @@ export const TodoWrapper = () => {
   };
 
   const deleteAll = () => {
-    if(todos.length === 0) return alert("Não há tarefas para deletar");
+    if (todos.length === 0) return alert("Não há tarefas para deletar");
 
     setTodos([]);
 
@@ -75,32 +77,38 @@ export const TodoWrapper = () => {
   // Adiciona borda quando aparece a barra de rolagem
   const lista = document.querySelector(".lista");
   const todosFlex = document.querySelector(".todosFlex");
-
+  const listabox = document.querySelector(".lista-box");
+  
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
     };
 
-    if (todosFlex && localStorage.getItem("todos") === "[]") {
-      todosFlex.classList.add("animate")
-      // todosFlex.style.display =  "none";
-      setTimeout(() => {todosFlex.style.display =  "none"; todosFlex.style.position = "absolute"}, 1000);
-    }else if (todosFlex && localStorage.getItem("todos") !== "[]") {
-      todosFlex.classList.add("animate")
-      todosFlex.style.display =  "flex";
+    if (todosFlex && todos.length !== 0) {
+      listabox.style.height = "auto";
       todosFlex.style.height = "auto";
+      listabox.style.display = "block";
+      todosFlex.style.display = "flex";
+    } else if (todosFlex && todos.length === 0) {
+      listabox.classList.add("animate");
+      todosFlex.classList.add("animate");
+      setTimeout(() => {
+        listabox.style.display = "none";
+      }, 343500);
+      setTimeout(() => {
+        todosFlex.style.display = "none";
+      }, 55500);
     }
     window.addEventListener("resize", handleResize);
 
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [todos, todosFlex]);
+  }, [listabox, todosFlex, todos]);
 
   // CSS função
   const addExceededHeightClass = () => {
     if (lista) {
-      const listabox = document.querySelector(".lista-box");
       if (todos.map((todo) => todo).length > 3) {
         listabox.style.borderBottom = "1px solid rgba(255,255,255,0.5)";
         listabox.style.borderTop = "1px solid rgba(255,255,255,0.5)";
@@ -126,8 +134,7 @@ export const TodoWrapper = () => {
       <Box className="lista-box" maxWidth={400} width={"100%"}>
         <List disablePadding id={1} className="lista">
           <TransitionGroup className="todosFlex">
-            {todos.map((todo) =>
-              todo.isEditing ? (
+            {todos.map((todo) => todo.isEditing ? (
                 <Collapse key={todo.id}>
                   <FadeIn>
                     <EditTodoForm

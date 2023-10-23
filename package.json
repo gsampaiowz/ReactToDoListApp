@@ -18,10 +18,19 @@
     "web-vitals": "^3.5.0"
   },
   "overrides": {
+    "@babel/plugin-transform-class-properties": "^7.22.5",
+    "@babel/plugin-transform-nullish-coalescing-operator": "^7.22.11",
+    "@babel/plugin-transform-numeric-separator": "^7.22.11",
+    "@babel/plugin-transform-optional-chaining": "^7.23.0",
+    "@babel/plugin-transform-private-methods": "^7.22.5",
+    "@jridgewell/sourcemap-codec": "^1.4.15",
+    "workbox-background-sync": "^6.6.0",
+    "svgo": "^3.0.2",
+    "@rollup/plugin-terser": "latest",
     "postcss": "^8.4.31",
     "css-select": "^3.1.0",
     "css-what": "^5.0.0"
-    },
+  },
   "scripts": {
     "start": "SET NODE_OPTIONS=--openssl-legacy-provider && set PORT=8000 && react-scripts start",
     "build": "SET NODE_OPTIONS=--openssl-legacy-provider && react-scripts build",

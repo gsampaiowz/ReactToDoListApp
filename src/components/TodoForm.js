@@ -4,16 +4,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const TodoForm = ({ addTodo, windowWidth }) => {
   const scrollToBottom = () => {
-    const element = document.getElementById('lista');
+    const element = document.getElementById("lista");
     element.scrollTo({
       top: element.scrollHeight,
       behavior: "smooth",
     });
   };
-
-  setTimeout(() => {
-    scrollToBottom();
-  }, 250);
 
   const [value, setValue] = useState("");
 
@@ -43,6 +39,10 @@ export const TodoForm = ({ addTodo, windowWidth }) => {
       return;
     }
     addTodo(value);
+
+    setTimeout(() => {
+      scrollToBottom();
+    }, 250);
 
     setValue("");
   };

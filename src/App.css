@@ -83,16 +83,11 @@ h1 {
 }
 
 .todosFlex {
-  display: none;
+  display: flex;
   flex-direction: column;
   gap: 16px;
   z-index: 1;
   padding: 4px 8px;
-}
-
-.animate {
-  height: 0;
-  transition: 1s ease-in-out height;
 }
 
 .lista {
@@ -102,8 +97,8 @@ h1 {
 }
 
 .lista-box {
-  display: none;
-  transition: 1s;
+  transition: all 0.5s;
+  margin-top: -12px;
 }
 
 .lista-box::before {
@@ -170,6 +165,33 @@ h1 {
     opacity: 1;
   }
 }
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 4px;
+}
+
+.modal-content h2 {
+  margin-top: 0;
+}
+
+.modal-content p {
+  margin-bottom: 20px;
+}
+
 
 /* Firefox */
 * {

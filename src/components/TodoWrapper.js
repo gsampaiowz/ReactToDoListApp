@@ -28,7 +28,6 @@ export const TodoWrapper = () => {
     const storedTodos = localStorage.getItem("todos");
 
     if (storedTodos) setTodos(JSON.parse(storedTodos));
-
   }, []);
 
   const toggleComplete = (id) => {
@@ -64,7 +63,7 @@ export const TodoWrapper = () => {
   };
 
   const deleteAll = () => {
-    if (todos.length === 0) return alert("Não há tarefas para deletar");
+    setShowModal(false);
 
     setTodos([]);
 
@@ -78,54 +77,51 @@ export const TodoWrapper = () => {
   const lista = document.querySelector(".lista");
   const todosFlex = document.querySelector(".todosFlex");
   const listabox = document.querySelector(".lista-box");
-  
+
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
     };
 
-    if (todosFlex && todos.length !== 0) {
-      listabox.style.height = "auto";
-      todosFlex.style.height = "auto";
-      listabox.style.display = "block";
-      todosFlex.style.display = "flex";
-    } else if (todosFlex && todos.length === 0) {
-      listabox.classList.add("animate");
-      todosFlex.classList.add("animate");
+    if (listabox && todos.length !== 0) {
+      listabox.style.maxHeight = "1000px"; // Use um valor grande o suficiente para acomodar o conteúdo
+      listabox.style.opacity = "1";
       setTimeout(() => {
-        listabox.style.display = "none";
-      }, 343500);
+        listabox.style.marginTop = "0"; // Reset o margin após a transição
+      }, 1000);
+      listabox.style.visibility = "visible";
+    } else if (listabox && todos.length === 0) {
+      listabox.style.maxHeight = "0";
+      listabox.style.opacity = "0";
       setTimeout(() => {
-        todosFlex.style.display = "none";
-      }, 55500);
+        listabox.style.visibility = "hidden";
+        listabox.style.marginTop = "-12px"; // Defina um margin negativo igual ao gap após a transição
+      }, 1000);
     }
+
+    if (listabox && todos.length > 3) {
+      listabox.style.borderBottom = "1px solid rgba(255,255,255,0.5)";
+      listabox.style.borderTop = "1px solid rgba(255,255,255,0.5)";
+      todosFlex.style.padding = "16px 8px";
+    } else if (listabox && todos.length <= 3) {
+      listabox.style.borderTop = "none";
+      listabox.style.borderBottom = "none";
+      todosFlex.style.padding = "4px 8px";
+    }
+
     window.addEventListener("resize", handleResize);
 
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [listabox, todosFlex, todos]);
+  }, [listabox, todosFlex, todos, lista]);
 
-  // CSS função
-  const addExceededHeightClass = () => {
-    if (lista) {
-      if (todos.map((todo) => todo).length > 3) {
-        listabox.style.borderBottom = "1px solid rgba(255,255,255,0.5)";
-        listabox.style.borderTop = "1px solid rgba(255,255,255,0.5)";
-        todosFlex.style.padding = "16px 8px";
-      } else {
-        listabox.style.borderTop = "none";
-        listabox.style.borderBottom = "none";
-        todosFlex.style.padding = "4px 8px";
-      }
-    }
+  const [showModal, setShowModal] = useState(false);
+
+  const openModal = () => {
+    if (todos.length === 0) return alert("Não há tarefas para deletar");
+    setShowModal(true);
   };
-
-  // evento da lista
-  if (lista) lista.addEventListener("MutationObserver", addExceededHeightClass);
-
-  // evento do flex
-  if (todosFlex) todosFlex.addEventListener("resize", addExceededHeightClass);
 
   return (
     <div className="TodoWrapper">
@@ -134,7 +130,8 @@ export const TodoWrapper = () => {
       <Box className="lista-box" maxWidth={400} width={"100%"}>
         <List disablePadding id={1} className="lista">
           <TransitionGroup className="todosFlex">
-            {todos.map((todo) => todo.isEditing ? (
+            {todos.map((todo) =>
+              todo.isEditing ? (
                 <Collapse key={todo.id}>
                   <FadeIn>
                     <EditTodoForm
@@ -164,10 +161,20 @@ export const TodoWrapper = () => {
       <button
         className="todo-btn"
         style={{ borderRadius: 8, borderLeft: "1px solid" }}
-        onClick={deleteAll}
+        onClick={openModal}
       >
         Deletar todos
       </button>
+      {showModal && (
+        <div className="modal">
+          <div className="modal-content">
+            <h2>Confirmação</h2>
+            <p>Deseja realmente executar esta ação?</p>
+            <button onClick={deleteAll}>Confirmar</button>
+            <button onClick={() => setShowModal(false)}>Cancelar</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

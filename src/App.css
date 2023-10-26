@@ -25,7 +25,6 @@ h1 {
 }
 
 .TodoWrapper {
-  transition: 1s;
   background: #2f0d4e;
   margin: 5rem 0 5rem 0;
   padding: 2rem;
@@ -37,7 +36,7 @@ h1 {
   width: 100%;
   border-radius: 16px;
   text-align: center;
-  animation: fadeIn 0.5s ease;
+  animation: fadeIn 0.5s linear;
 }
 
 .TodoForm {
@@ -47,7 +46,6 @@ h1 {
   width: 100%;
   justify-content: space-between;
   display: flex;
-  z-index: 2;
 }
 
 .input-box {
@@ -70,7 +68,7 @@ h1 {
 }
 
 .todo-btn {
-  transition: all 0.2s;
+  transition: .5s;
   min-width: 150px;
   font-weight: 500;
   background: #2f0d4e;
@@ -93,38 +91,13 @@ h1 {
 .lista {
   max-height: 256px;
   overflow-y: scroll;
-  transition: 1s;
 }
 
 .lista-box {
-  transition: all 0.5s;
+  transition: 1s;
   margin-top: -12px;
 }
 
-.lista-box::before {
-  transition: opacity 1s, display 1s;
-  animation: fade 1s ease;
-  content: "";
-  opacity: var(--opacity);
-  display: var(--display);
-  height: 1px;
-  border-bottom: 1px solid transparent;
-  box-shadow: 0px 5px 5px black;
-  margin-bottom: 8px;
-  width: auto;
-}
-
-.lista-box::after {
-  transition: opacity 1s, display 1s;
-  content: "";
-  animation: fade 1s ease;
-  opacity: var(--opacity);
-  display: var(--display);
-  height: 1px;
-  box-shadow: 0px -5px 5px black;
-  margin-top: 8px;
-  width: auto;
-}
 .Todo {
   display: flex;
   justify-content: space-between;
@@ -147,6 +120,50 @@ h1 {
   gap: 8px;
 }
 
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  animation: fadeIn 0.5s linear;
+  background-color: #2f0d4e;
+  color: white;
+  padding: 20px;
+  border-radius: 16px;
+}
+
+.modal-content h2 {
+  margin-top: 0;
+}
+
+.modal-content p {
+  margin-bottom: 20px;
+}
+
+.modal-content .buttons{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.modal-content .buttons button {
+  min-width: 100px;
+  font-weight: 500;
+  background: #2f0d4e;
+  border: 1px solid #d1d1d1;
+  border-radius: 8px;
+  color: #d1d1d1;
+  padding: 0.55rem;
+  cursor: pointer;
+}
+
 @keyframes fadeIn {
   0% {
     opacity: 0;
@@ -165,33 +182,6 @@ h1 {
     opacity: 1;
   }
 }
-
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal-content {
-  background-color: white;
-  padding: 20px;
-  border-radius: 4px;
-}
-
-.modal-content h2 {
-  margin-top: 0;
-}
-
-.modal-content p {
-  margin-bottom: 20px;
-}
-
 
 /* Firefox */
 * {

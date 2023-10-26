@@ -31,11 +31,11 @@ export const TodoWrapper = () => {
   }, []);
 
   const toggleComplete = (id) => {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo
-      )
+    const updatedTodos = todos.map((todo) =>
+      todo.id === id ? { ...todo, completed: !todo.completed } : todo
     );
+    setTodos(updatedTodos);
+    localStorage.setItem("todos", JSON.stringify(updatedTodos));
   };
 
   const deleteTodo = (id) => {
@@ -86,9 +86,7 @@ export const TodoWrapper = () => {
     if (listabox && todos.length !== 0) {
       listabox.style.maxHeight = "1000px"; // Use um valor grande o suficiente para acomodar o conteúdo
       listabox.style.opacity = "1";
-      setTimeout(() => {
-        listabox.style.marginTop = "0"; // Reset o margin após a transição
-      }, 1000);
+      listabox.style.marginTop = "0"; // Reset o margin após a transição
       listabox.style.visibility = "visible";
     } else if (listabox && todos.length === 0) {
       listabox.style.maxHeight = "0";
@@ -96,7 +94,7 @@ export const TodoWrapper = () => {
       setTimeout(() => {
         listabox.style.visibility = "hidden";
         listabox.style.marginTop = "-12px"; // Defina um margin negativo igual ao gap após a transição
-      }, 1000);
+      }, 300);
     }
 
     if (listabox && todos.length > 3) {
@@ -123,12 +121,25 @@ export const TodoWrapper = () => {
     setShowModal(true);
   };
 
+  const cancel = async () => {
+    document
+      .getElementsByClassName("modal")[0]
+      .animate([{ opacity: 1 }, { opacity: 0 }], {
+        duration: 300,
+        iterations: 1,
+      });
+
+    setTimeout(() => {
+      setShowModal(false);
+    }, 250);
+  };
+
   return (
     <div className="TodoWrapper">
       <h1>Organize suas tarefas!</h1>
       <TodoForm todos={todos} windowWidth={windowWidth} addTodo={addTodo} />
       <Box className="lista-box" maxWidth={400} width={"100%"}>
-        <List disablePadding id='lista' className="lista">
+        <List disablePadding id="lista" className="lista">
           <TransitionGroup className="todosFlex">
             {todos.map((todo) =>
               todo.isEditing ? (
@@ -170,8 +181,10 @@ export const TodoWrapper = () => {
           <div className="modal-content">
             <h2>Confirmação</h2>
             <p>Deseja realmente executar esta ação?</p>
-            <button onClick={deleteAll}>Confirmar</button>
-            <button onClick={() => setShowModal(false)}>Cancelar</button>
+            <div className="buttons">
+              <button onClick={deleteAll}>Confirmar</button>
+              <button onClick={cancel}>Cancelar</button>
+            </div>
           </div>
         </div>
       )}

@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const TodoForm = ({ addTodo, windowWidth }) => {
   const scrollToBottom = () => {
-    const element = document.getElementById(1);
+    const element = document.getElementById('lista');
     element.scrollTo({
       top: element.scrollHeight,
       behavior: "smooth",

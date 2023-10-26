@@ -128,7 +128,7 @@ export const TodoWrapper = () => {
       <h1>Organize suas tarefas!</h1>
       <TodoForm todos={todos} windowWidth={windowWidth} addTodo={addTodo} />
       <Box className="lista-box" maxWidth={400} width={"100%"}>
-        <List disablePadding id={1} className="lista">
+        <List disablePadding id='lista' className="lista">
           <TransitionGroup className="todosFlex">
             {todos.map((todo) =>
               todo.isEditing ? (

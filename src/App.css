@@ -68,7 +68,7 @@ h1 {
 }
 
 .todo-btn {
-  transition: .5s;
+  transition: 0.5s;
   min-width: 150px;
   font-weight: 500;
   background: #2f0d4e;
@@ -148,7 +148,7 @@ h1 {
   margin-bottom: 20px;
 }
 
-.modal-content .buttons{
+.modal-content .buttons {
   display: flex;
   justify-content: space-evenly;
 }

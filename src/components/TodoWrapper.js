@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { TodoForm } from "./TodoForm";
 import { v4 as uuidv4 } from "uuid";
 import { Todo } from "./Todo";
@@ -74,15 +74,10 @@ export const TodoWrapper = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   // Adiciona borda quando aparece a barra de rolagem
-  const lista = document.querySelector(".lista");
   const todosFlex = document.querySelector(".todosFlex");
   const listabox = document.querySelector(".lista-box");
 
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-
+  const deleteAllTransition = useCallback(() => {
     if (listabox && todos.length !== 0) {
       listabox.style.maxHeight = "1000px"; // Use um valor grande o suficiente para acomodar o conteúdo
       listabox.style.opacity = "1";
@@ -96,7 +91,9 @@ export const TodoWrapper = () => {
         listabox.style.marginTop = "-12px"; // Defina um margin negativo igual ao gap após a transição
       }, 300);
     }
+  }, [listabox, todos.length]);
 
+  const setBorder = useCallback(() => {
     if (listabox && todos.length > 3) {
       listabox.style.borderBottom = "1px solid rgba(255,255,255,0.5)";
       listabox.style.borderTop = "1px solid rgba(255,255,255,0.5)";
@@ -106,13 +103,23 @@ export const TodoWrapper = () => {
       listabox.style.borderBottom = "none";
       todosFlex.style.padding = "4px 8px";
     }
+  }, [listabox, todos.length, todosFlex]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    deleteAllTransition(useCallback);
+
+    setBorder(useCallback);
 
     window.addEventListener("resize", handleResize);
 
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [listabox, todosFlex, todos, lista]);
+  }, [deleteAllTransition, setBorder]);
 
   const [showModal, setShowModal] = useState(false);
 
@@ -121,7 +128,7 @@ export const TodoWrapper = () => {
     setShowModal(true);
   };
 
-  const cancel = async () => {
+  const cancel = () => {
     document
       .getElementsByClassName("modal")[0]
       .animate([{ opacity: 1 }, { opacity: 0 }], {

@@ -3,7 +3,7 @@ import React from "react";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
-export const Todo = ({ todo, toggleComplete, deleteTodo, editTodo }) => {
+const Todo = ({ todo, toggleComplete, deleteTodo, editTodo }) => {
 	return (
 		<div className="Todo">
 			<p
@@ -28,3 +28,5 @@ export const Todo = ({ todo, toggleComplete, deleteTodo, editTodo }) => {
 		</div>
 	);
 };
+
+export default Todo;

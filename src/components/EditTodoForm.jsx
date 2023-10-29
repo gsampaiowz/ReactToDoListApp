@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export const EditTodoForm = ({ editTodo, todo, windowWidth }) => {
+const EditTodoForm = ({ editTodo, todo, windowWidth }) => {
   const [value, setValue] = useState("");
 
   const handleSubmit = (e) => {
@@ -59,3 +59,5 @@ export const EditTodoForm = ({ editTodo, todo, windowWidth }) => {
     </form>
   );
 };
+
+export default EditTodoForm;

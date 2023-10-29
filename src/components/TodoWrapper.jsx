@@ -1,8 +1,8 @@
 import React, { useCallback, useState } from "react";
-import { TodoForm } from "./TodoForm";
+import TodoForm from "./TodoForm";
 import { v4 as uuidv4 } from "uuid";
-import { Todo } from "./Todo";
-import { EditTodoForm } from "./EditTodoForm";
+import Todo from "./Todo";
+import EditTodoForm from "./EditTodoForm";
 import { TransitionGroup } from "react-transition-group";
 import { List, Box, Collapse } from "@mui/material";
 import FadeIn from "react-fade-in";
@@ -10,26 +10,28 @@ import { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faTrash } from "@fortawesome/free-solid-svg-icons";
 
-export const TodoWrapper = () => {
+const TodoWrapper = () => {
   const [todos, setTodos] = useState([]);
   const [toasts, setToast] = useState();
   const toast = document.getElementById("toast");
 
   const showToast = () => {
-    document.querySelectorAll("div").forEach((el) => {
+    document.querySelectorAll("svg").forEach((el) => {
       el.style.cursor = "wait";
     });
     document.querySelectorAll("input").forEach((input) => {
       input.placeholder = "Aguarde...";
+      input.style.cursor = "wait";
       input.disabled = true;
     });
 
     setTimeout(() => {
-      document.querySelectorAll("div").forEach((el) => {
-        el.style.cursor = "auto";
+      document.querySelectorAll("svg").forEach((el) => {
+        el.style.cursor = "pointer";
       });
       document.querySelectorAll("input").forEach((input) => {
         input.placeholder = "Adicione uma tarefa";
+        input.style.cursor = "auto";
         input.disabled = false;
       });
     }, 1500);
@@ -260,3 +262,5 @@ export const TodoWrapper = () => {
     </div>
   );
 };
+
+export default TodoWrapper;

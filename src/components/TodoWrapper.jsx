@@ -94,6 +94,7 @@ export const TodoWrapper = () => {
   };
 
   const editTodo = (id) => {
+    setTodos(todos.forEach((todo) => (todo.isEditing = false)));
     setTodos(
       todos.map((todo) =>
         todo.id === id ? { ...todo, isEditing: !todo.isEditing } : todo

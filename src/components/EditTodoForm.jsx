@@ -9,8 +9,8 @@ export const EditTodoForm = ({ editTodo, todo, windowWidth }) => {
     e.preventDefault();
 
     if (!value) {
-      const input = document.getElementById("todo-input");
-      const btninput = document.getElementById("todo-btn");
+      const input = document.querySelectorAll(".todo-input").item(1);
+      const btninput = document.querySelectorAll(".todo-btn")[1];
       input.focus();
       input.animate(
         [
@@ -42,7 +42,6 @@ export const EditTodoForm = ({ editTodo, todo, windowWidth }) => {
         type="text"
         className="todo-input"
         value={value}
-		id="todo-input"
         placeholder="Atualizar tarefa"
         onChange={(e) => setValue(e.target.value)}
       />
@@ -50,7 +49,6 @@ export const EditTodoForm = ({ editTodo, todo, windowWidth }) => {
         style={{ minWidth: windowWidth < 459 ? "48px" : "150px" }}
         type="submit"
         className="todo-btn"
-		id="todo-btn"
       >
         {windowWidth < 459 ? (
           <FontAwesomeIcon icon={faPlus} />

@@ -7,12 +7,56 @@ import { TransitionGroup } from "react-transition-group";
 import { List, Box, Collapse } from "@mui/material";
 import FadeIn from "react-fade-in";
 import { useEffect } from "react";
-uuidv4();
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 export const TodoWrapper = () => {
   const [todos, setTodos] = useState([]);
+  const [toasts, setToast] = useState();
+  const toast = document.getElementById("toast");
+
+  const showToast = () => {
+    document.querySelectorAll("div").forEach((el) => {
+      el.style.cursor = "wait";
+    });
+    document.querySelectorAll("input").forEach((input) => {
+      input.placeholder = "Aguarde...";
+      input.disabled = true;
+    });
+
+    setTimeout(() => {
+      document.querySelectorAll("div").forEach((el) => {
+        el.style.cursor = "auto";
+      });
+      document.querySelectorAll("input").forEach((input) => {
+        input.placeholder = "Adicione uma tarefa";
+        input.disabled = false;
+      });
+    }, 1500);
+
+    toast.style.marginTop = "-100px";
+
+    setTimeout(() => {
+      toast.style.opacity = "0";
+    }, 1000);
+
+    setTimeout(() => {
+      toast.style.transition = "0s";
+      toast.style.marginTop = "-300px";
+    }, 1500);
+
+    setTimeout(() => {
+      toast.style.transition = "1s";
+      toast.style.opacity = "1";
+    }, 2000);
+  };
 
   const addTodo = (todo) => {
+    setToast(true);
+    toast.style.background = "green";
+
+    showToast();
+
     const newTodo = [
       ...todos,
       { id: uuidv4(), task: todo, completed: false, idEditing: false },
@@ -23,7 +67,7 @@ export const TodoWrapper = () => {
     localStorage.setItem("todos", JSON.stringify(newTodo));
   };
 
-  //Carrega os toDos do localStorage
+  //Carrega os todos do localStorage
   useEffect(() => {
     const storedTodos = localStorage.getItem("todos");
 
@@ -39,6 +83,11 @@ export const TodoWrapper = () => {
   };
 
   const deleteTodo = (id) => {
+    setToast(false);
+    toast.style.background = "red";
+
+    showToast();
+
     const updatedTodos = todos.filter((todo) => todo.id !== id);
     setTodos(updatedTodos);
     localStorage.setItem("todos", JSON.stringify(updatedTodos));
@@ -53,6 +102,9 @@ export const TodoWrapper = () => {
   };
 
   const editTask = (task, id) => {
+    setToast(true);
+    showToast();
+
     const updatedTask = todos.map((todo) =>
       todo.id === id ? { ...todo, task, isEditing: !todo.isEditing } : todo
     );
@@ -142,7 +194,7 @@ export const TodoWrapper = () => {
   };
 
   return (
-    <div className="TodoWrapper">
+    <div className="TodoWrapper" id="todo-wrapper">
       <h1>Organize suas tarefas!</h1>
       <TodoForm todos={todos} windowWidth={windowWidth} addTodo={addTodo} />
       <Box className="lista-box" maxWidth={400} width={"100%"}>
@@ -195,6 +247,15 @@ export const TodoWrapper = () => {
           </div>
         </div>
       )}
+      <div className="toast" id="toast">
+        {toasts ? (
+          <FontAwesomeIcon size="xl" icon={faCheck} />
+        ) : (
+          <>
+            <FontAwesomeIcon size="xl" icon={faTrash} />
+          </>
+        )}
+      </div>
     </div>
   );
 };

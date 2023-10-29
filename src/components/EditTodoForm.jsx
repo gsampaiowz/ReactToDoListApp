@@ -2,23 +2,15 @@ import React, { useState } from "react";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export const TodoForm = ({ addTodo, windowWidth }) => {
-  const scrollToBottom = () => {
-    const element = document.getElementById("lista");
-    element.scrollTo({
-      top: element.scrollHeight,
-      behavior: "smooth",
-    });
-  };
-
+export const EditTodoForm = ({ editTodo, todo, windowWidth }) => {
   const [value, setValue] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (!value) {
-      const input = document.querySelector(".todo-input");
-      const btninput = document.querySelector(".todo-btn");
+      const input = document.getElementById("todo-input");
+      const btninput = document.getElementById("todo-btn");
       input.focus();
       input.animate(
         [
@@ -38,11 +30,8 @@ export const TodoForm = ({ addTodo, windowWidth }) => {
       );
       return;
     }
-    addTodo(value);
 
-    setTimeout(() => {
-      scrollToBottom();
-    }, 250);
+    editTodo(value, todo.id);
 
     setValue("");
   };
@@ -53,19 +42,20 @@ export const TodoForm = ({ addTodo, windowWidth }) => {
         type="text"
         className="todo-input"
         value={value}
-        placeholder="Adicione uma tarefa"
+		id="todo-input"
+        placeholder="Atualizar tarefa"
         onChange={(e) => setValue(e.target.value)}
       />
       <button
-        onClick={scrollToBottom}
         style={{ minWidth: windowWidth < 459 ? "48px" : "150px" }}
         type="submit"
         className="todo-btn"
+		id="todo-btn"
       >
         {windowWidth < 459 ? (
           <FontAwesomeIcon icon={faPlus} />
         ) : (
-          "Adicionar tarefa"
+          "Atualizar tarefa"
         )}
       </button>
     </form>

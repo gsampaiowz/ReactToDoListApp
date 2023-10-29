@@ -107,12 +107,19 @@ h1 {
   color: #d1d1d1;
   padding: 16px 16px;
   border-radius: 5px;
+}
+
+.Todo p {
   cursor: pointer;
 }
 
 .completed {
   color: #444444;
   text-decoration: line-through;
+}
+
+.icons svg {
+  cursor: pointer;
 }
 
 .icons {
@@ -162,6 +169,28 @@ h1 {
   color: #d1d1d1;
   padding: 0.55rem;
   cursor: pointer;
+}
+
+.toast {
+  position: absolute;
+  right: 0;
+  margin: 10px;
+  margin-top: -300px;
+  overflow: hidden;
+  transition: 1s;
+
+  color: white;
+  border-radius: 20px;
+  padding: 15px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.25);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.toast p {
+  font-size: 14px;
 }
 
 @keyframes fadeIn {

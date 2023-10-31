@@ -17,6 +17,7 @@ const TodoWrapper = () => {
 
   const showToast = () => {
     document.querySelectorAll("svg").forEach((el) => {
+      el.style.pointerEvents = "none";
       el.style.cursor = "wait";
     });
     document.querySelectorAll("input").forEach((input) => {
@@ -27,6 +28,7 @@ const TodoWrapper = () => {
 
     setTimeout(() => {
       document.querySelectorAll("svg").forEach((el) => {
+        el.style.pointerEvents = "auto";
         el.style.cursor = "pointer";
       });
       document.querySelectorAll("input").forEach((input) => {
